@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="自然に囲まれた場所で、食事とデザートをゆっくり楽しめるカフェ・レストラン。">
+  <title>森の食卓｜Cafe & Restaurant</title>
+  <style>
+    :root {
+      --cream: #f7f1e7;
+      --paper: #fffdf8;
+      --brown: #5b4435;
+      --brown-light: #806957;
+      --terracotta: #b76548;
+      --green: #69755a;
+      --line: #ded3c5;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(91, 68, 53, .08);
+      --serif: Georgia, "Times New Roman", "Yu Mincho", "Hiragino Mincho ProN", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "YuGothic", Meiryo, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--brown);
+      background: var(--paper);
+      font-family: var(--sans);
+      line-height: 1.8;
+      letter-spacing: .03em;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { color: inherit; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    /* ==============================
+       CSS：ヘッダー
+       ============================== */
+    .site-header {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 10;
+      padding: 22px 0;
+      color: var(--white);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .logo { display: none; }
+    .header-nav { display: flex; gap: 24px; font-size: .82rem; }
+    .header-nav a {
+      text-decoration: none;
+      color: inherit;
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: color .2s ease, background-color .2s ease;
+    }
+    .header-nav a:hover {
+      color: var(--brown);
+      background: rgba(255,255,255,.92);
+    }
+
+    /* ==============================
+       CSS：FV（ファーストビュー）
+       ============================== */
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      background: var(--brown);
+      color: var(--white);
+    }
+    .hero-copy {
+      display: flex;
+      align-items: center;
+      padding: 110px max(30px, calc((100vw - 1120px) / 2)) 70px 30px;
+    }
+    .hero-content { max-width: 560px; }
+    .eyebrow {
+      margin: 0 0 16px;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      opacity: .82;
+    }
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      font-weight: 500;
+      letter-spacing: .06em;
+    }
+    .hero-lead {
+      margin: 30px 0 0;
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 2;
+    }
+    .hero-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      margin-top: 28px;
+      font-size: .945rem;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: 14px 28px;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: .95rem;
+      transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .button:hover {
+      background: var(--white);
+      border-color: var(--white);
+      color: var(--brown);
+    }
+    .button.primary {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: var(--white);
+    }
+    .button.primary:hover {
+      background: #9f513a;
+      border-color: #9f513a;
+      color: var(--white);
+    }
+    .button:focus-visible,
+    .header-nav a:focus-visible {
+      outline: 2px solid var(--white);
+      outline-offset: 3px;
+    }
+    .hero-image { min-height: 620px; }
+    .hero-image img { object-position: center; }
+
+    /* ==============================
+       CSS：共通セクション
+       ============================== */
+    section { padding: 100px 0; }
+    .section-head { margin-bottom: 48px; }
+    .section-label {
+      margin: 0 0 8px;
+      color: var(--terracotta);
+      font-size: .72rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.25;
+      font-weight: 500;
+    }
+    .section-intro {
+      max-width: 680px;
+      margin: 18px 0 0;
+      color: var(--brown-light);
+    }
+
+    /* ==============================
+       CSS：About／店舗の魅力
+       ============================== */
+    .about { background: var(--cream); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 70px;
+      align-items: center;
+    }
+    .about-image { height: 520px; }
+    .about-copy p { margin: 0 0 20px; }
+    .about-note {
+      padding: 22px 24px;
+      border-left: 2px solid var(--terracotta);
+      background: rgba(255,255,255,.55);
+      font-family: var(--serif);
+    }
+
+    /* ==============================
+       CSS：FOOD／ランチメニュー
+       ============================== */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .menu-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .menu-photo { aspect-ratio: 4 / 3; }
+    .menu-body { padding: 22px 24px 24px; }
+    .menu-title-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: baseline;
+    }
+    .menu-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    .price { white-space: nowrap; font-size: .95rem; color: var(--terracotta); }
+    .menu-meta { margin: 8px 0 0; color: var(--brown-light); font-size: .78rem; }
+
+    /* ==============================
+       CSS：DESSERT／デザート
+       ============================== */
+    .dessert { background: var(--cream); }
+    .dessert-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .dessert-photo { aspect-ratio: 4 / 3; }
+    .dessert-list { display: grid; gap: 0; }
+    .dessert-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .dessert-item:first-child { border-top: 1px solid var(--line); }
+    .dessert-name { font-family: var(--serif); }
+    .dessert-price { color: var(--terracotta); white-space: nowrap; }
+
+    /* ==============================
+       CSS：SPACE／店内・テラス・自然
+       ============================== */
+    .space-gallery {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      grid-template-rows: 260px 260px;
+      gap: 18px;
+    }
+    .space-gallery .large { grid-row: 1 / 3; }
+    .space-caption {
+      margin-top: 24px;
+      max-width: 720px;
+      color: var(--brown-light);
+    }
+
+    /* ==============================
+       CSS：ACCESS／アクセス・店舗情報
+       ============================== */
+    .access { background: var(--cream); }
+    .access-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+    .info-list { margin: 0; }
+    .info-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .info-row dt { font-weight: 600; }
+    .info-row dd { margin: 0; }
+    .map {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, rgba(105,117,90,.12) 25%, transparent 25%) 0 0 / 40px 40px,
+        linear-gradient(315deg, rgba(183,101,72,.08) 25%, transparent 25%) 0 0 / 40px 40px,
+        #e9e2d6;
+      border: 1px solid var(--line);
+      text-align: center;
+      padding: 30px;
+    }
+    .map strong { display: block; font-family: var(--serif); font-size: 1.5rem; }
+
+    /* ==============================
+       CSS：CTA／予約・お問い合わせ
+       ============================== */
+    .final-cta {
+      padding: 85px 0;
+      background: var(--brown);
+      color: var(--white);
+      text-align: center;
+    }
+    .final-cta h2 { margin-bottom: 16px; }
+    .final-cta p { margin: 0 auto 28px; max-width: 600px; opacity: .9; }
+    .phone {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      text-decoration: none;
+      letter-spacing: .08em;
+    }
+
+    footer {
+      padding: 30px 0;
+      background: #49372c;
+      color: rgba(255,255,255,.75);
+      font-size: .75rem;
+    }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 800px) {
+      .header-nav { display: none; }
+      .hero {
+        display: block;
+        min-height: auto;
+      }
+      .hero-copy { padding: 110px 24px 55px; }
+      .hero-image { height: 52vh; min-height: 360px; }
+      .container { width: min(100% - 32px, 640px); }
+      section { padding: 72px 0; }
+      .about-grid, .dessert-grid, .access-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .about-image { height: 360px; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .space-gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: 300px 200px 200px;
+      }
+      .space-gallery .large { grid-row: auto; }
+      .info-row { grid-template-columns: 95px 1fr; gap: 12px; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2.75rem; }
+      .hero-lead { font-size: 1rem; }
+      .hero-info { display: grid; gap: 6px; }
+      .menu-title-row { align-items: flex-start; }
+      .menu-title { font-size: 1.1rem; }
+      .dessert-grid { gap: 28px; }
+      .space-gallery { grid-template-rows: 260px 180px 180px; }
+      .button { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ==============================
+       HTML：ヘッダー／ナビゲーション
+       ============================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <nav class="header-nav" aria-label="メインナビゲーション">
+        <a href="#food">FOOD</a>
+        <a href="#dessert">DESSERT</a>
+        <a href="#space">SPACE</a>
+        <a href="#access">ACCESS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==============================
+         HTML：FV（ファーストビュー）
+         ============================== -->
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="hero-content">
+          <p class="eyebrow">Cafe & Restaurant</p>
+          <h1>森の食卓</h1>
+          <p class="hero-lead">自然を眺めながら、<br>美味しいものをゆっくり。</p>
+          <div class="hero-info">
+            <span>11:00–17:00（L.O. 16:30）</span>
+            <span>○○市○○町</span>
+          </div>
+          <div class="hero-actions">
+            <a class="button primary" href="tel:0577000000">電話で予約する</a>
+            <a class="button" href="#access">アクセスを見る</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1400&q=85" alt="自然光が入るレストランの食卓">
+      </div>
+    </section>
+
+    <!-- ==============================
+         HTML：About／店舗の魅力
+         ============================== -->
+    <section class="about">
+      <div class="container about-grid">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1100&q=85" alt="自然に囲まれたカフェのような空間">
+        </div>
+        <div class="about-copy">
+          <div class="section-head">
+            <p class="section-label">About</p>
+            <h2>休日に、少しだけ<br>遠回りしたくなる場所。</h2>
+          </div>
+          <p>田んぼと山に囲まれた、静かな場所にあるカフェ・レストラン。季節の景色を眺めながら、ランチやデザートをゆっくり楽しんでいただけます。</p>
+          <p>家族での休日にも、友人とのランチにも。美味しいものを囲んで、肩の力を抜いて過ごせる時間をどうぞ。</p>
+          <div class="about-note">料理も、ケーキも、ここで過ごす時間も。<br>「今日はここに来てよかった」と思える一日を。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         HTML：FOOD／ランチメニュー
+         ============================== -->
+    <section id="food">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">Food</p>
+          <h2>今日のランチ</h2>
+          <p class="section-intro">その日の食材を使った、5つのメイン料理をご用意しています。<br>※以下はサイト制作のための仮データです。</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-card">
+            <div class="menu-photo"><img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85" alt="季節野菜のパスタ"></div>
+            <div class="menu-body"><div class="menu-title-row"><h3 class="menu-title">季節野菜のクリームパスタ</h3><span class="price">¥1,480</span></div><p class="menu-meta">地元産きのこ・季節野菜</p></div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-photo"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85" alt="季節野菜のプレートランチ"></div>
+            <div class="menu-body"><div class="menu-title-row"><h3 class="menu-title">季節野菜のプレートランチ</h3><span class="price">¥1,650</span></div><p class="menu-meta">地元産野菜・飛騨豚</p></div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-photo"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=85" alt="彩り野菜のキッシュプレート"></div>
+            <div class="menu-body"><div class="menu-title-row"><h3 class="menu-title">彩り野菜のキッシュプレート</h3><span class="price">¥1,380</span></div><p class="menu-meta">地元産卵・季節野菜</p></div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-photo"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85" alt="季節野菜のピザ"></div>
+            <div class="menu-body"><div class="menu-title-row"><h3 class="menu-title">季節野菜とチーズのピザ</h3><span class="price">¥1,550</span></div><p class="menu-meta">地元産トマト・チーズ</p></div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-photo"><img src="https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=900&q=85" alt="鶏肉のグリルプレート"></div>
+            <div class="menu-body"><div class="menu-title-row"><h3 class="menu-title">ハーブチキンのグリルプレート</h3><span class="price">¥1,680</span></div><p class="menu-meta">国産鶏・地元産季節野菜</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         HTML：DESSERT／デザート
+         ============================== -->
+    <section id="dessert" class="dessert">
+      <div class="container dessert-grid">
+        <div>
+          <div class="section-head">
+            <p class="section-label">Dessert</p>
+            <h2>本日のショーケース</h2>
+            <p class="section-intro">食後のお楽しみに、その日のケーキやデザートを。ショーケースからお好きなものをお選びいただけます。</p>
+          </div>
+          <div class="dessert-list">
+            <div class="dessert-item"><span class="dessert-name">季節のフルーツタルト</span><span class="dessert-price">¥650</span></div>
+            <div class="dessert-item"><span class="dessert-name">濃厚チーズケーキ</span><span class="dessert-price">¥580</span></div>
+            <div class="dessert-item"><span class="dessert-name">自家製プリン</span><span class="dessert-price">¥520</span></div>
+            <div class="dessert-item"><span class="dessert-name">季節の焼き菓子プレート</span><span class="dessert-price">¥680</span></div>
+          </div>
+        </div>
+        <div class="dessert-photo">
+          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1100&q=85" alt="季節のケーキとデザート">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         HTML：SPACE／店内・テラス・自然
+         ============================== -->
+    <section id="space">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">Space</p>
+          <h2>ゆっくり過ごせる、<br>自然の中の食卓。</h2>
+        </div>
+        <div class="space-gallery">
+          <div class="large"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85" alt="広々としたレストランの店内"></div>
+          <div><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=85" alt="テラス席のあるカフェ"></div>
+          <div><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85" alt="山と緑が広がる自然の風景"></div>
+        </div>
+        <p class="space-caption">店内にはゆったりとした席を用意しています。外には季節を感じられるテラス席も。家族でのランチも、食後のデザートを楽しむ時間も、どうぞ気兼ねなくお過ごしください。</p>
+      </div>
+    </section>
+
+    <!-- ==============================
+         HTML：ACCESS／アクセス・店舗情報
+         ============================== -->
+    <section id="access" class="access">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">Access</p>
+          <h2>車で、ゆっくり<br>会いに来てください。</h2>
+        </div>
+        <div class="access-grid">
+          <div>
+            <dl class="info-list">
+              <div class="info-row"><dt>住所</dt><dd>〒000-0000<br>岐阜県○○市○○町123-4</dd></div>
+              <div class="info-row"><dt>営業時間</dt><dd>11:00〜17:00<br>ラストオーダー 16:30</dd></div>
+              <div class="info-row"><dt>定休日</dt><dd>火曜日・水曜日</dd></div>
+              <div class="info-row"><dt>駐車場</dt><dd>あり／10台</dd></div>
+              <div class="info-row"><dt>電話</dt><dd>0577-00-0000</dd></div>
+            </dl>
+          </div>
+          <div class="map" aria-label="地図の仮表示">
+            <div>
+              <strong>MAP</strong>
+              <span>ここにGoogleマップ等を設置してください</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         HTML：CTA／予約・お問い合わせ
+         ============================== -->
+    <section class="final-cta">
+      <div class="container">
+        <p class="section-label" style="color:#e7b39f;">Reservation</p>
+        <h2>次の休日は、<br>少し遠回りしてみませんか。</h2>
+        <p>ご予約・お問い合わせはお電話でお気軽にどうぞ。</p>
+        <a class="button primary" href="tel:0577000000">電話で予約する</a>
+        <br>
+        <a class="phone" href="tel:0577000000">0577-00-0000</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==============================
+       HTML：フッター
+       ============================== -->
+  <footer>
+    <div class="container footer-inner">
+      <span>森の食卓｜Cafe & Restaurant</span>
+      <span>© MORI NO SHOKUTAKU</span>
+    </div>
+  </footer>
+</body>
+</html>
